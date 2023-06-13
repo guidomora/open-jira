@@ -1,0 +1,6 @@
+npm install @mui/material @emotion/react @emotion/styled
+npm install @fontsource/roboto
+npm install @mui/icons-material
+npm install uuid
+npm i --save-dev @types/uuid
+npm install animate.css --save

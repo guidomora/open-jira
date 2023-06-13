@@ -1,0 +1,99 @@
+
+
+Configuracion del theme:
+
+1) en _app.tsx envolvemos <Component {...pageProps} /> con el ThemeProvider
+    y le agregamos el componente CssBaseline
+2) themes > ligtTheme.ts y darkTheme.ts configuramos los temas
+
+Layout:
+
+3) components > layouts > Layout.tsx este componente va a tener toda la
+   estructura de la app
+4) creamos el layout y su interface en la que tendra un title string y los children
+   son ReactNode
+5) en index.ts usamos <Layout> resto de JSX </Layout> 
+
+NavBar
+6) components > ui > NavbaR.tsx creacion del NavBar
+
+SideBar: 
+7) components > ui > SideBar.tsx Aca utilizamos el componente Drawer de material ui
+   una vez terminado el maquetado, vamos a tener que usar el context para ThemeProvider
+   hacer que abra o cierre 
+8) context > ui > UIContext creamos un contexto y creamos un snippet para crear el context
+    "reactcontext"
+    
+    9) Context Provider: 
+        - context > UIProvider Creamos una interface, el estado inicial y el provider.
+        - context > UIReducer Creamos el reducer, en vez de una interface creamos un type
+        para especificar el action type 
+        - creamos el switch con los case 
+        - Envolvemos la app en el UIProvider (_app.tsx)
+    10) Aplicando el Context al SideBar: 
+        - en UIProvider creamos una funcion en la que se usa el dispatch, para que ejecute
+        la accion para abrir el sideBar 
+        - en la interface de UIContext vamos a tener que agregar la funcion 
+        - en SideBar llamamos al useContext para poder acceder al estado y le pasamos la prop 
+        que tiene el estado, a donde dice open
+        - en NavBar llamamos al useContext para poder acceder al estado, traemos la funcion
+        que abre el SideBar y la llamamos en un onclick
+
+        Para cerrar el SideBar:
+        - mismo procedimiento que para abrirlo, solo que en vez de pasar la funcion para cerrarlo
+        en el NavBar, hay que pasar la en el mismo SideBar en la prop de onClose 
+
+--------------------------------------------------------------------------------------
+11) Diseño de la pantalla princilal: 
+    - en el index vamos creando la estructura
+    - creamos los archivos del context > EntriesContext.tsx | EntriesProvider.tsx 
+        | entriesReducer.ts
+    - interfaces > entry.ts creamos una interface para las entries
+    - agregamos un poco de info de relleno en el context en EntriesProvider
+    - envolvemos la app con el EntriesProvider
+
+12) Componentes para mostrar las entradas:
+    - ui > EntryList.tsx seria el componente que va a tener la lista de entradas
+    - Agregamos este componente en el index, dentro de CardContent
+    - ui > EntryCard.tsx es el componenteque va a tener cada una de las entries 
+
+13) Mostrar las tarjetas segun el estado de entrada:
+    - creamos una interface en la EntryList que nos va a decir el type del status
+    - al pasarle status como parametro al componente, en el index nos va a pedir que 
+      especifiquemos el status, entonces vamos a tener que poner para c/u 
+    - en EntryList traemos el context
+    - filtramos las entries del context segun su estatus
+    - mapeamos el array filtrado en el componente EntryCard
+    - en EntryCard creamos una interface para deciler que entry es de tipo Entry, pasamos entry
+      como parametro y las propiedades en cada parte del componente
+    - memorizamos las entries filtradas para que react no este ejecutando esto cada vez 
+      que se renderice el componente en EntryList
+
+14) Agregar entradas: 
+    - components > ui > NewEntry.tsx Creamos la maquetacion del componente
+
+    15) Formulario y estado: 
+        - creamos un useState para abrir y ocultar el agregado de tareas 
+        - creamos un useState para el valor del input
+        - creamos un useState para la validacion del formulario 
+
+        16) Entrada en el estado global:
+            - en entriesReducer en el type, lo aclaramos y el tipo de payload
+            Nombramos el case con el nombre del action type y en el return agregamos que 
+            entries va a se un array del estado actual.entries mas el action.payload
+            - en EntriesProvider creamos la funcion addNewEntry que recibe de parametro description
+            y va a tener el objeto newEntry de tipo Entry, hacemos el dispatch de newEntry y
+            pasamos la funcion al return
+            - detallamos la funcion addNewEntry en la interface del context
+            - en NewEntry en la funcion onSave despues de la que agrega la entry, reseteamos
+            los estados del formulario
+
+17) Pasar el useState de NewEntry que abre y oculta para realizar la nueva entrada
+    - en UIReducer creamos el action type y el payload y creamos el case
+    - agregamos a la interface isAddingEntry: boolean 
+    - lo agregamos tambien a la interface del UIProvider y lo agregamos al
+      estado inicial con un valor de false
+    - en UIProvider creamos la funcion setIsAddingEntry, que recibe isAdding 
+      despacha el action y como payload recibe isAdding
+    - ponemos la funcion en el return y despues la vamos a tener que
+      detallar en la interface de UIContext
