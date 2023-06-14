@@ -6,12 +6,14 @@ import { uiReducer } from "./UIReducer";
 export interface UIState {
     sideMenuOpen: boolean;
     isAddingEntry:boolean;
+    isDragging:boolean;
     children?:JSX.Element;
 }
 
 const UI_INITIAL_STATE: UIState = {
     sideMenuOpen: false,
-    isAddingEntry:false
+    isAddingEntry:false,
+    isDragging:false,
 }
 
 
@@ -34,6 +36,14 @@ const UIProvider = ({children}:PropsWithChildren) => {
     dispatch({type: "UI - Adding Entry", payload: isAdding})
   }
 
+  const startDragging = () => {
+    dispatch({type: "UI - Start Dragging"})
+  }
+
+  const endDragging = () => {
+    dispatch({type: "UI - End Dragging"})
+  }
+
     return (
     <UIContext.Provider value={{
         ...state,
@@ -41,6 +51,8 @@ const UIProvider = ({children}:PropsWithChildren) => {
         openSideMenu,
         closeSideMenu,
         setIsAddingEntry,
+        startDragging,
+        endDragging,
     }}>
         {children}
     </UIContext.Provider>

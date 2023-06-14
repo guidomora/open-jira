@@ -1,0 +1,6 @@
+1) Docker compose: imagen en base de datos
+    - creamos el archivo docker-compose.yaml
+    - escribimos codigo en ese archivo
+    - ejecutamos ->    docker-compose up -d
+    - vamos a mongo compass, new conection y escribimos mongodb://localhost:27017/entriesdb
+      el numero es el puerto que habiamos escrito en el archivo de docker, y entriesdb es el nombre

@@ -97,3 +97,44 @@ SideBar:
       despacha el action y como payload recibe isAdding
     - ponemos la funcion en el return y despues la vamos a tener que
       detallar en la interface de UIContext
+
+18) Drag and Drop manuelamente:
+  - en EntryCard en <Card> le agregamos la propiedad draggable
+  - creamos una funcion onDragStart la cual el parametro evento es de tipo
+    DragEvent. Como saber que tipo son estos parametros??
+                - Le asignamos algun tipo que ya sabemos que no es, en 
+                este caso le pusimos nombre y cuando salta el error, ahi 
+                nos va a decir de que tipo es
+  - dentro de la funcion vamos a tener event.dataTransfer.setData("text", entry._id)
+    - nos permite establecer un cierto tipo de info (solo strings)
+    - para saber el identificador de cada card usamos el _id 
+  - pasamos la funcion al onDragStart en <Card> 
+  - en EntryList creamos la funcion onDropEntry donde creamos una constante que trae el id
+    del drag que se inicio 
+  - creamos la funcion allowDrop que solo va a tener un event.preventDefault() y la pasamos
+    a la propiedad onDragOver del div
+
+    19) Cambiar aspecto visual cuando hacemos drag:
+    - en UIProvider agregamos isDragging a la interface y al initial state
+    - en el UIReducer creamos el action type y los case para que hagan que isDragging sea
+      true o false
+    - en el UIProvider creamos 2 funciones que van a despachar cada una de las actions y
+      las ponemos en el return
+    - en UIContext las detallamos en la interface
+    - llamamos al useContext en EntryCard y traemos las funciones creadas en el UIProvider
+    - la del endDragging la llamamos directo en la prop de onDragEnd y la de startDragging en onDragStart
+    - en EntryList llamamos al context, traemos el isDragging y en <List> agregamos css 
+      para que cuando este en true se oscurezca la lista
+    - creamos un modulo de css y lo ponemos como condicional con isDragging
+      en una clase
+    
+    20) Cambiar el estado del Entry:
+      - en entriesReducer creamos un nuevo action type y un case (mirarlo 
+        porque es complejo)
+      - en EntriesProvider creamos la funcion updateEntry que despacha la accion
+        y la ponemos en el return
+      - detallamos la funcion en el EntriesContext
+      - en EntryList creamos la constante entry que busca que el id sea igual 
+        al id de la entrada
+      - hacemos que el entri.status sea igual al status
+      - ejecutamos el onEndDraggin traido del UIContext

@@ -21,7 +21,6 @@ const NewEntry = () => {
 
   const onSave = () => {
     if (inputValue.length === 0 ) return
-    console.log({inputValue});
     addNewEntry(inputValue)
     setIsAddingEntry(false)
     setTouched(false)
@@ -32,7 +31,7 @@ const NewEntry = () => {
     <Box sx={{ marginBottom: 2, paddingX: 1 }}>
       {
         isAddingEntry ? (
-          <Box>
+          <Box >
             <TextField fullWidth
               sx={{ marginTop: 2, marginBottom: 1 }} placeholder='Nueva entrada'
               autoFocus multiline label="Nueva entrada"
