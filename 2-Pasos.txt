@@ -2,5 +2,25 @@
     - creamos el archivo docker-compose.yaml
     - escribimos codigo en ese archivo
     - ejecutamos ->    docker-compose up -d
+    - en el gitignore escribimos /mongo
     - vamos a mongo compass, new conection y escribimos mongodb://localhost:27017/entriesdb
-      el numero es el puerto que habiamos escrito en el archivo de docker, y entriesdb es el nombre
+      el numero es el puerto que habiamos escrito en el archivo de docker
+       y entriesdb es el nombre
+
+2) Resful API:
+  - api > seed.ts en este archivo vamos a poder hacer las peticiones put,
+    post, etc. Funciona exactamente igual que router
+  - database > db.ts
+  - instalamos mongoose npm install mongoose --save es un ODM object data modeling
+    nos ayuda a trabajar con mongo facilmente
+  - en db vamos a crear las funciones para conectarnos y desconectarnos
+    de la db
+
+3) Variables de entorno:
+  - creamos el archivo .env en la raiz del proyecto
+  - la agregamos al gitignore
+  - Las variables de entorno se ejecutan de lado del servidor, por lo tanto del lado del front
+    Son inaccesibles, para que se puedan acceder del lado del front en next debemos llamarlas
+    NEXT_PUBLIC_NOMBRE_VARIABLE de esta forma next sabe que es una variable de acceso publico
+  - Acordarse que siempre al agregar una variable de entorno hay que levantar la app de nuevo
+  
