@@ -42,7 +42,7 @@ const NewEntry = () => {
               onBlur={() => setTouched(true)}
             />
             <Box display="flex" justifyContent="space-between">
-              <Button variant='text' onClick={() => setIsAddingEntry(false)}>
+              <Button variant='outlined' onClick={() => setIsAddingEntry(false)}>
                 Cancelar
               </Button>
               <Button color='secondary' variant='outlined'

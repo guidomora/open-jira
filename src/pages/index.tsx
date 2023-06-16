@@ -18,7 +18,7 @@ const HomePage:NextPage = () => {
       <Grid container spacing={2}>
         <Grid item xs={12} sm={4} >
           <Card sx={{ height: "calc(100vh - 100px)"}}>
-            <CardHeader title="pendientes"/>
+            <CardHeader title="Pendientes" color='red'/>
               {/* Agregar Tarea */}
               <NewEntry />
               <EntryList status="pending"/>

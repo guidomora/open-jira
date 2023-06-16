@@ -23,4 +23,10 @@
     Son inaccesibles, para que se puedan acceder del lado del front en next debemos llamarlas
     NEXT_PUBLIC_NOMBRE_VARIABLE de esta forma next sabe que es una variable de acceso publico
   - Acordarse que siempre al agregar una variable de entorno hay que levantar la app de nuevo
-  
+  - Creamos un archivo .env.template, que va a ser una copia del env pero sin las keys, solo
+    con sus nombres, para que cuando otros vean nuestro codigo sepan que esas son las 
+    variables y ellos las rellenen con sus propias keys (es considerado una buena practica)
+  - en el archivo seeds creamos un condicioinal que se va a ejecutar solo cuando esta en
+    produccion, que va a conectar y desconectar la base de datos
+  - vamos al archivo db.ts y en await mongoose.connect() agregamos la variable de 
+    entorno de mongo
