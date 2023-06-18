@@ -23,6 +23,7 @@
     Son inaccesibles, para que se puedan acceder del lado del front en next debemos llamarlas
     NEXT_PUBLIC_NOMBRE_VARIABLE de esta forma next sabe que es una variable de acceso publico
   - Acordarse que siempre al agregar una variable de entorno hay que levantar la app de nuevo
+  - Dentro de la variable agregamos la conexion a mongo
   - Creamos un archivo .env.template, que va a ser una copia del env pero sin las keys, solo
     con sus nombres, para que cuando otros vean nuestro codigo sepan que esas son las 
     variables y ellos las rellenen con sus propias keys (es considerado una buena practica)
@@ -30,3 +31,32 @@
     produccion, que va a conectar y desconectar la base de datos
   - vamos al archivo db.ts y en await mongoose.connect() agregamos la variable de 
     entorno de mongo
+
+    4) Lecturas, Inserciones, etc en mongo:
+      - models > Entry.ts 
+
+      -------!!!!!----------
+      - Como se cuando de ejecuta del lado del cliente o de lado del servidor?
+        La forma mas facil es preguntarnos quien lo esta llamando. Por ejemplo
+        si lo llamamos desde api, algun archivo que empiece con _ o desde server side
+        props o static props es del lado del servidor
+      -------!!!!!----------
+
+      - en este archivo vamos a crear un esquema de datos para un objeto de entrada
+      - usamos mongoose para crearlo
+      - hacemos un extend de la interface de Entry
+
+    5) Llenando la base de datos:
+      - api > seed-data.ts en este archivo vamos a poner la info que queremos
+        cargar de forma automatica
+      - En seed.ts vamos entre el connectDB y el disconnectDB vamos a escribir el codigo
+        para poder insertar datos en mongo
+      - ejecutamos en postman usando la url de siempre http://localhost:3000/api/seed
+        y corroboramos que en mongo se hayan cargado las entradas
+      - hacemos una correccion en db.ts para que no se nos desconecte cuando
+        la variable de node esta en desarrollo
+      - Hay que tener cuidado con el archivo seed ya que solo es para desarrollo
+
+    6) Obteniendo las entradas:
+      - api > entries > index.ts vamos a crear los endpoints para obtener
+        las entradas 

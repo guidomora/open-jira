@@ -1,6 +1,8 @@
 // Creado con el snippet nextapi
 
 import { connectDB, disconnectDB } from '@/database/db'
+import { seedData } from '@/database/seed-data'
+import EntryModel from '@/models/Entry'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data = {
@@ -16,6 +18,19 @@ export default async function (req: NextApiRequest, res: NextApiResponse<Data>) 
     }
 
     await connectDB()
+    // En este punto podemos hacer cualquier interaccion con la db
+    
+    
+    // 
+    await EntryModel.deleteMany()
+
+    // insertamos las entries que habiamos puesto en el archivo seeddata
+    await EntryModel.insertMany(seedData.entries)
+
+
+
+
+
     await disconnectDB()
     
     res.status(200).json({ message: 'Proceso realizado correctamente' })

@@ -42,6 +42,10 @@ export const connectDB = async () => {
 
 
 export const disconnectDB = async () => {
+
+    // si la variable de node es igual a development no nos desconectamos
+    if (process.env.NODE_ENV === "development") return
+
     // Cualquier conexion que sea diferente de 0 nos desconectamos
     if (mongoConnection.isConnected === 0) return
 
