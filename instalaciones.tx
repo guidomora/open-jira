@@ -5,3 +5,4 @@ npm install uuid
 npm i --save-dev @types/uuid
 npm install animate.css --save
 npm install mongoose --save
+npm i axios

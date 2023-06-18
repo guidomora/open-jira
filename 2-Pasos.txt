@@ -64,4 +64,15 @@
       - creamos una funcion que se va a encargar de obtener las entradas
       - dentro de esa funcion, la const entries devuelve todas las entradas
         y las devuelve  
-      
+
+    7) Leer las entradas del backend  
+      - instalamos axios
+      - apis > entriesApi.ts en este archivo creamos con axios el llamado
+        a nuestra api
+      - en EntriesProvider creamos una funcion refreshEntries que va allamar a axios para
+        traer la data
+      - creamos un useEffect que va a ejecutar esa funcion
+      - en entriesReducer creamos una action nueva y un case
+      - volvemos al EntriesProvider y a la funcion creada le agregamos 
+        el dispatch y que como payload va a tener la data traida con axios
+      - ahora podemos ver las entradas en nuestra app desde la db
