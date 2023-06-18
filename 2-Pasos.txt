@@ -60,3 +60,8 @@
     6) Obteniendo las entradas:
       - api > entries > index.ts vamos a crear los endpoints para obtener
         las entradas 
+      - creamos un switch para manejar los metodos http 
+      - creamos una funcion que se va a encargar de obtener las entradas
+      - dentro de esa funcion, la const entries devuelve todas las entradas
+        y las devuelve  
+      
