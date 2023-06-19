@@ -65,7 +65,7 @@
       - dentro de esa funcion, la const entries devuelve todas las entradas
         y las devuelve  
 
-    7) Leer las entradas del backend  
+    7) Leer las entradas del backend : READ
       - instalamos axios
       - apis > entriesApi.ts en este archivo creamos con axios el llamado
         a nuestra api
@@ -76,3 +76,22 @@
       - volvemos al EntriesProvider y a la funcion creada le agregamos 
         el dispatch y que como payload va a tener la data traida con axios
       - ahora podemos ver las entradas en nuestra app desde la db
+    
+    8) Crear una entrada en el backend: CREATE
+      - pages > api > entries > index.ts
+      - creamos la funcion postEntry que se va a encargar cargar los archivos en la db
+      - va a tener una request y una response 
+      - en Entry.ts agregamos como valor por defecto "pending" en caso de que no
+        se mande nada 
+      - index.ts creamos un case "POST" en el switch. ejecuta la funcion postEntry
+
+      9) Crear una entrada en el front: CREATE
+      - en EntriesProvider en la funcion addNewEntry borramos el objeto newEntry
+      - creamos una constante que va a traer la data de axios para luego despacharla
+        como payload
+
+    10) Actualizar una entrada en particular: UPDATE
+      - pages > api > entries > [id].ts
+      - creamos un type
+      - creamos una funcion con un switch con el endpoint "PUT"
+      - creamos la funcion updateEntry 

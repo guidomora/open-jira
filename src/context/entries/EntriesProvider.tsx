@@ -1,10 +1,9 @@
-import { FC, ReactNode, useReducer, PropsWithChildren, useEffect } from "react";
+import { useReducer, PropsWithChildren, useEffect } from "react";
 import { EntriesContext } from "./EntriesContext";
 import { entriesReducer } from "./entriesReducer";
 import { Entry } from "@/interfaces/entry";
-import { v4 as uuidv4 } from 'uuid';
 import entriesApi from "@/apis/entriesApi";
-import { type } from "os";
+
 
 
 
@@ -25,14 +24,19 @@ const EntriesProvider = ({ children }: PropsWithChildren) => {
     // Como va a menejar el estado el provider
     const [state, dispatch] = useReducer(entriesReducer, Entries_INITIAL_STATE)
 
-    const addNewEntry = (description: string) => {
-        const newEntry: Entry = {
-            _id: uuidv4(),
-            description,
-            createdAt: Date.now(),
-            status: "pending"
-        }
-        dispatch({ type: "[Entry] - Add-Entry", payload: newEntry })
+    const addNewEntry = async (description: string) => {
+
+        // Ya no le corresponde al front
+        // const newEntry: Entry = {
+        //     _id: uuidv4(),
+        //     description,
+        //     createdAt: Date.now(),
+        //     status: "pending"
+        // }
+
+        // El segundo argumento de una peticion post es la data que queremos mandar
+        const {data} = await entriesApi.post<Entry>("/entries", {description})
+        dispatch({ type: "[Entry] - Add-Entry", payload: data })
     }
 
     const updateEntry = (entry: Entry) => {

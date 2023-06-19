@@ -9,8 +9,6 @@ const inter = Inter({ subsets: ['latin'] })
 
 
 const HomePage:NextPage = () => {
-
-  console.log(process.env.NEXT_PUBLIC_CLIENT_KEY);
   
 
   return (
