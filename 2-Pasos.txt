@@ -95,3 +95,35 @@
       - creamos un type
       - creamos una funcion con un switch con el endpoint "PUT"
       - creamos la funcion updateEntry 
+
+      Continuacion:
+      - en la funcion updateEntry al final vamos a agregar un trycatch, en el 
+        que modificamos la estructura final se la funcion
+    
+    11) Actualizar entrada en el Front: UPDATE
+      - EntriesProvider en la funcion updateEntry agregamos un trycatch
+      - desestructuramos el entry, asi solo obtenemos el id, la description y el status
+        que es lo unico que vamos a usar
+      - usamos casi la misma linea de codigo que habiamos usado en la funcion de addNewEntry
+        para mandar la data, solo que camiamos el metodo por "put", a la url le agregamos el id
+        y ademas de la description tambien mandamos el status
+
+  12) Obtener entradas por ID:
+    - en [id] creamos la funcion getEntry
+    - es igual a la primera parte de la funcion updateEntry
+
+  13) Middlewares:
+    - Nos permite ejecutar cierto codigo antes de que de entrar a una pagina
+      o ruta. Nosotros lo vamois a usar para validar que sea un MongoId, ya que
+      si no lo es la db va a dar un error
+
+    14) Middlewares pt2:
+      - en la raiz creamos el archivo middleware.ts (se tiene que llamar asi)
+      - copiamos el codigo de
+      https://nextjs.org/docs/pages/building-your-application/routing/middleware
+      - hacemos algunas modificaciones en la funcion y en el matcher
+
+    15) Middlewares pt3: Verificar que sea un MongoId
+    - creamos un condicional en el archivo que va a evaluar el id
+    - api > bad-request.ts creamos un nuevo endpoint, el cual vamos
+      a manejar con nuestros bad request

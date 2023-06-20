@@ -35,17 +35,24 @@ const EntriesProvider = ({ children }: PropsWithChildren) => {
         // }
 
         // El segundo argumento de una peticion post es la data que queremos mandar
-        const {data} = await entriesApi.post<Entry>("/entries", {description})
+        const { data } = await entriesApi.post<Entry>("/entries", { description })
         dispatch({ type: "[Entry] - Add-Entry", payload: data })
     }
 
-    const updateEntry = (entry: Entry) => {
-        dispatch({ type: "[Entry] - Entry-Updated", payload: entry })
+    const updateEntry = async ({ _id, status, description }: Entry) => {
+        try {
+            // para hacerlo mas eficiente solo mandamos el status y la description del entry
+            // en vez de mandar solo entry 
+            const { data } = await entriesApi.put<Entry>(`/entries/${_id}`, { description, status })
+            dispatch({ type: "[Entry] - Entry-Updated", payload: data })
+        } catch (error) {
+            console.log({error});
+        }
     }
 
-    const refreshEntries = async() => {
-        const {data} = await entriesApi.get<Entry[]>("/entries")
-        dispatch({type:"[Entry] - Refresh-data", payload: data})
+    const refreshEntries = async () => {
+        const { data } = await entriesApi.get<Entry[]>("/entries")
+        dispatch({ type: "[Entry] - Refresh-data", payload: data })
     }
 
     useEffect(() => {
