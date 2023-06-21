@@ -127,3 +127,14 @@
     - creamos un condicional en el archivo que va a evaluar el id
     - api > bad-request.ts creamos un nuevo endpoint, el cual vamos
       a manejar con nuestros bad request
+  
+  16) Pantalla para editar una entrada:
+    - pages > entries > [id].tsx
+    - creamos la pantalla y formulario con los estilos
+    
+    17) Manejo del formulario:
+    - en [id].tsx creamos 3 useState para manejar los estados
+      - para el input 
+      - para el estado de la entry
+      - para ver si se toco ---> validacion
+    
