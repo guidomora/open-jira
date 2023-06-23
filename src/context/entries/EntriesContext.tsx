@@ -7,7 +7,7 @@ export interface ContextProps {
     // lucir como Entry y que va a ser un array
      entries: Entry[];
      addNewEntry: (description: string) => void;
-     updateEntry: (entry: Entry) => void;
+     updateEntry: (entry: Entry, showSnackBar?:boolean) => void;
 }
 
 export const EntriesContext = createContext({

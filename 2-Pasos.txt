@@ -138,3 +138,45 @@
       - para el estado de la entry
       - para ver si se toco ---> validacion
     
+    18) Validacion:
+    - Creamos la validacion con el input y el button
+    - memorizamos el inputValue y el touched
+
+    19) SSR getServerSideProps:
+    - Cuando alguien solicite esta pagina, va a venir precargada con info del lado
+      del servidor
+    - [id].tsx usamos el snippet nextgetSSRProps
+    - obtenemos el id de los params
+    - creamos un condicional para que verifique si es un id de mongo y si no lo es te
+      direcciona al home
+    - a las props pasamos el id
+    - creamos la interface Props que va a tener el id
+    - recibimos las props en el componente
+
+    20) Navegar y cargar la entrada mediante SSR: UPDATE
+    - en EntryCard creamos una funcion que al hacerle click nos manda a "/entries/ + el id"
+    - y en el NavBar agregamos para que al hacer click en OpenJira nos mande a "/"
+    - database > dbEntries.ts y creamos la funcion getEntriesById
+    - usamos metodos de mongoose y traemos el id y tambien hacemois la verificacion
+      ahi mismo de que sea un id de mongo borramos la verificacion anterior
+    - en [id].tsx creamos una constante que  va a llamar getEntriesById
+    - esa constante la reemplazamos en el condicional y la agregamos a la prop
+    - en dbEntries a la funcion getEntriesById le agregamos un json parse y stringify,
+      para que pueda traer el id de forma correcta
+    - en [id].tsx solo nos queda pasar entry al EntryPage y repartimos el entry en los
+      useState
+    
+    21) Guardar la informaciond e la entrada: UPDATE
+    - en [id].tsx llamamos al context y traemos la funcion updateEntry
+    - creamos la funccion on save donde, validamos que la entrada no este vacia,
+      desestructuramos la entry para no sobreescribir todo y luego se la pasamos a
+      updateEntry
+    - npm i notistack
+    - esto usa un provider, entonces vamos a _app y lo agregamos por encima de todos
+    - esto tamb usa un customHook asi que en EntriesProvider lo importamos, lo agregamos en
+      el updateEntry
+    - tambien a esta funcion le agregamos una prop nueva, asi podemos configurar que solo
+      se muestre cuando editamos y no cuando hacemos el drag and drop 
+    - en EntriesContext al updateEntry le agregamos showSnackBar como opcional y con 
+      valor booleano 
+    - finalmente en [id].tsx al update entry le agregamos un true como segundo argumento
