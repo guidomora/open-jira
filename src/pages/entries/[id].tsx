@@ -46,9 +46,7 @@ const EntryPage: FC<Props> = ({ entry }) => {
         updateEntry(updatedEntry, true)
     }
 
-    const deleting = () => {
-        deleteEntry(entry._id)
-    }
+
 
     return (
         <Layout title={inputValue.substring(0, 20) + "..."}>
@@ -107,7 +105,7 @@ const EntryPage: FC<Props> = ({ entry }) => {
             <IconButton sx={{
                 position: "fixed", bottom: 30, right: 30,
                 backgroundColor: "error.dark"
-            }}>
+            }} onClick={() => deleteEntry(entry._id)}>
                 <DeleteForeverOutlinedIcon  />
             </IconButton>
         </Layout>
@@ -135,7 +133,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
     return {
         props: {
-            entry
+            entry,  
         }
     }
 }

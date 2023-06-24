@@ -1,7 +1,7 @@
 import { useReducer, PropsWithChildren, useEffect } from "react";
 import { EntriesContext } from "./EntriesContext";
 import { entriesReducer } from "./entriesReducer";
-import { Entry } from "@/interfaces/entry";
+import { Entry, EntryId } from "@/interfaces/entry";
 import entriesApi from "@/apis/entriesApi";
 import { useSnackbar } from "notistack";
 
@@ -63,9 +63,9 @@ const EntriesProvider = ({ children }: PropsWithChildren) => {
         }
     }
 
-    const deleteEntry = async ({_id}:Entry) => {
-        const { data } = await entriesApi.delete<Entry>(`/entries/${_id}`)
-        dispatch({type: "[Entry] - Entry-Deleted", payload: data._id})
+    const deleteEntry = async (entryId:Entry) => {
+        const { data } = await entriesApi.delete<Entry>(`/entries/${entryId}`)
+        dispatch({type: "[Entry] - Entry-Deleted", payload:{_id:data._id}})
     }
 
     const refreshEntries = async () => {

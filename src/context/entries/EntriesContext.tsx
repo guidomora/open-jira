@@ -1,4 +1,4 @@
-import { Entry } from '@/interfaces/entry';
+import { Entry, EntryId } from '@/interfaces/entry';
 import { createContext } from 'react';
 
 
@@ -8,7 +8,7 @@ export interface ContextProps {
      entries: Entry[];
      addNewEntry: (description: string) => void;
      updateEntry: (entry: Entry, showSnackBar?:boolean) => void;
-     deleteEntry: (entry: Entry) => void
+     deleteEntry: (entryId: Entry) => Promise<void>
 }
 
 export const EntriesContext = createContext({
