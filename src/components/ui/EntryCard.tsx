@@ -1,5 +1,6 @@
 import { UIContext } from '@/context/ui/UIContext';
 import { Entry } from '@/interfaces/entry'
+import { getFormatDistanceToNow } from '@/utils/dateFunctions';
 import { Card, CardActionArea, CardActions, Typography } from '@mui/material'
 import { useRouter } from 'next/router';
 import React, { DragEvent, useContext } from 'react'
@@ -32,7 +33,7 @@ const EntryCard:FC<Props> = ({entry}) => {
             {/* pre-line sirve para que los saltos de linea se muestren */}
             <Typography sx={{whiteSpace:"pre-line"}}>{entry.description}</Typography>
             <CardActions sx={{display:"flex", justifyContent:"flex-end", paddingRight:2}}>
-                <Typography variant='body2'>Creado hace:</Typography>
+                <Typography variant='body2'>{getFormatDistanceToNow(entry.createdAt)}</Typography>
             </CardActions>
         </CardActionArea>
     </Card>

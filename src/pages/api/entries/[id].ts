@@ -60,7 +60,20 @@ const deleteEntry = async (req: NextApiRequest, res: NextApiResponse) => {
         await disconnectDB()
         return res.status(400).json({ message: "No hay entrada con ese id" });
     }
-
+    
+    try {
+        const deletedEntry = await EntryModel.deleteOne({_id:id})
+        // Validacion
+        if (deletedEntry.deletedCount === 1) {
+            return res.status(200).json({ message: "Entrada borrada correctamente" });
+          } else {
+            return res.status(400).json({ message: "No se pudo borrar la entrada" });
+          }
+    } catch (error:any) {
+        console.log({ error });
+        await disconnectDB()
+        res.status(400).json({ message: error.errors.status.message });
+    }
 }
 
 

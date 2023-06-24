@@ -63,8 +63,9 @@ const EntriesProvider = ({ children }: PropsWithChildren) => {
         }
     }
 
-    const deleteEntry = async (entry:Entry) => {
-        dispatch({type: "[Entry] - Entry-Deleted", payload: entry})
+    const deleteEntry = async ({_id}:Entry) => {
+        const { data } = await entriesApi.delete<Entry>(`/entries/${_id}`)
+        dispatch({type: "[Entry] - Entry-Deleted", payload: data._id})
     }
 
     const refreshEntries = async () => {
@@ -82,6 +83,7 @@ const EntriesProvider = ({ children }: PropsWithChildren) => {
             ...state,
             addNewEntry,
             updateEntry,
+            deleteEntry
         }}>
             {children}
         </EntriesContext.Provider>

@@ -180,3 +180,13 @@
     - en EntriesContext al updateEntry le agregamos showSnackBar como opcional y con 
       valor booleano 
     - finalmente en [id].tsx al update entry le agregamos un true como segundo argumento
+
+    22) Calcular el tiempo desde la publicacion:
+    - instalamos date fns npm install date-fns --save
+    - utils > dateFunctions.ts creamos una funcion que usa una funcion de
+      date fns
+    - en EntryCard vamos a la parte que tendria hace cuanto se creo, importamos
+      la funcion y le pasamos el entry.createdAt
+    - volvemos a dateFunctions.ts, lo pasamos a español con el objeto locale
+      y le agregamos con backticks el "hace"
+    - aplicamos la misma funcion en api > entries > [id].tsx

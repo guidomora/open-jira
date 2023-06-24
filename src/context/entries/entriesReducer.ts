@@ -6,7 +6,7 @@ type entriesActionType =
     | { type: "[Entry] - Add-Entry", payload: Entry }
     | { type: "[Entry] - Entry-Updated", payload: Entry }
     | { type: "[Entry] - Refresh-data", payload: Entry[] }
-    | { type: "[Entry] - Entry-Deleted", payload: Entry }
+    | { type: "[Entry] - Entry-Deleted", payload:Entry }
 
 // Recibe un estado/accion y produce un nuevo estado
 export const entriesReducer = (state: EntriesState, action: entriesActionType): EntriesState => {

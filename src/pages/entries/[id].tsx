@@ -5,18 +5,18 @@ import { Button, Card, CardActions, CardContent, CardHeader, FormControl, FormCo
 import SaveAsOutlinedIcon from '@mui/icons-material/SaveAsOutlined';
 import { Entry, EntryStatus } from "@/interfaces/entry";
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
-import { isValidObjectId } from "mongoose";
 import { getEntriesById } from "@/database/dbEntries";
 import { EntriesContext } from "@/context/entries/EntriesContext";
+import { getFormatDistanceToNow } from "@/utils/dateFunctions";
 
 const validStatus: EntryStatus[] = ["pending", "in-progress", "finished"]
 
 interface Props {
-    entry:Entry
+    entry: Entry
 }
 
-const EntryPage:FC<Props> = ({entry}) => {
-    const {updateEntry} = useContext(EntriesContext)
+const EntryPage: FC<Props> = ({ entry }) => {
+    const { updateEntry, deleteEntry } = useContext(EntriesContext)
     const [inputValue, setInputValue] = useState(entry.description)
     const [status, setStatus] = useState<EntryStatus>(entry.status)
     const [touched, setTouched] = useState(false)
@@ -28,16 +28,16 @@ const EntryPage:FC<Props> = ({entry}) => {
     }
 
     const onStatusChanged = (event: ChangeEvent<HTMLInputElement>) => {
-        setStatus(event.target.value as EntryStatus);  
+        setStatus(event.target.value as EntryStatus);
     }
 
     const onSave = () => {
         // no vamos a permitir entradas sin texto
-        if (inputValue.trim().length === 0 ) return
-       
+        if (inputValue.trim().length === 0) return
+
         // como no queremos sobreescribir la entry entera, solo cambiamos el
         // status y la description
-        const updatedEntry:Entry = {
+        const updatedEntry: Entry = {
             ...entry,
             status,
             description: inputValue
@@ -46,9 +46,12 @@ const EntryPage:FC<Props> = ({entry}) => {
         updateEntry(updatedEntry, true)
     }
 
+    const deleting = () => {
+        deleteEntry(entry._id)
+    }
 
     return (
-        <Layout title={inputValue.substring(0,20) + "..."}>
+        <Layout title={inputValue.substring(0, 20) + "..."}>
             <Grid
                 container
                 justifyContent="center"
@@ -56,7 +59,7 @@ const EntryPage:FC<Props> = ({entry}) => {
                 <Grid item xs={12} sm={8} md={6}>
                     <Card>
                         <CardHeader title={`Entrada:`}
-                            subheader={`Creada hace ${entry.createdAt} minutos`} />
+                            subheader={`Creada ${getFormatDistanceToNow(entry.createdAt)}`} />
                         <CardContent>
                             <TextField
                                 sx={{ marginTop: 2, marginBottom: 1 }}
@@ -105,7 +108,7 @@ const EntryPage:FC<Props> = ({entry}) => {
                 position: "fixed", bottom: 30, right: 30,
                 backgroundColor: "error.dark"
             }}>
-                <DeleteForeverOutlinedIcon />
+                <DeleteForeverOutlinedIcon  />
             </IconButton>
         </Layout>
     )
@@ -114,22 +117,22 @@ const EntryPage:FC<Props> = ({entry}) => {
 // You should use getServerSideProps when:
 // - Only if you need to pre-render a page whose data must be fetched at request time
 
-export const getServerSideProps: GetServerSideProps = async ({params}) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     // el ctx.params nos trae lo que le mandamos en la url, en este caso el id
     // desestructuramos del ctx los params
     // aca aclaramos en ts que los paramos van a venir como un string
-    const { id } = params as {id:string}  
+    const { id } = params as { id: string }
     const entry = await getEntriesById(id)
 
     if (!entry) {
         return {
-            redirect:{
+            redirect: {
                 destination: "/",
-                permanent:false
+                permanent: false
             }
         }
     }
-    
+
     return {
         props: {
             entry
