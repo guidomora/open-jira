@@ -63,9 +63,10 @@ const EntriesProvider = ({ children }: PropsWithChildren) => {
         }
     }
 
-    const deleteEntry = async (entryId:Entry) => {
+    const deleteEntry = async (entryId:string) => {
         const { data } = await entriesApi.delete<Entry>(`/entries/${entryId}`)
         dispatch({type: "[Entry] - Entry-Deleted", payload:{_id:data._id}})
+        refreshEntries() 
     }
 
     const refreshEntries = async () => {
@@ -74,7 +75,7 @@ const EntriesProvider = ({ children }: PropsWithChildren) => {
     }
 
     useEffect(() => {
-        refreshEntries()
+        refreshEntries() 
     }, [])
 
 

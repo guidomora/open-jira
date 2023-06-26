@@ -8,7 +8,7 @@ export interface ContextProps {
      entries: Entry[];
      addNewEntry: (description: string) => void;
      updateEntry: (entry: Entry, showSnackBar?:boolean) => void;
-     deleteEntry: (entryId: Entry) => Promise<void>
+     deleteEntry: (entryId: string) => Promise<void>
 }
 
 export const EntriesContext = createContext({
