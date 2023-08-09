@@ -37,4 +37,5 @@ next-env.d.ts
 
 mongo/
 
-.env
+.env.production
+.env.development
